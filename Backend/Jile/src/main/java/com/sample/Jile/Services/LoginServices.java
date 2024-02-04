@@ -1,7 +1,6 @@
 package com.sample.Jile.Services;
 
 import com.sample.Jile.Entity.User;
-import com.sample.Jile.Repository.UserLogin;
 import com.sample.Jile.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

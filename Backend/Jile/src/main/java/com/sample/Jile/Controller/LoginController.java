@@ -17,8 +17,8 @@ public class LoginController {
         String result = loginServices.verifyCrds(UserName,Password);
         return result;
     }
-
-    @PostMapping("/register")
+    @CrossOrigin
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public User CreatUser(@RequestBody User user){
         return loginServices.register(user);
     }
