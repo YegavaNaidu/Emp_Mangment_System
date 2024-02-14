@@ -1,0 +1,97 @@
+<!-- <div class="outer_container">
+<div class="login_container">
+
+    <form [formGroup] ="loginDetails" class="login_form" (ngSubmit)="onsumbit()">
+        <div class="input-group input-group-lg">
+            <span class="input-group-text"></span>
+            <input type="text"
+                class="form-control"
+                placeholder="Username"
+                formControlName="userName"
+                aria-label="UserName">
+        </div>
+        <span style="color: crimson;" 
+        *ngIf="userName && userName.invalid && userName.touched" >Please enter Username</span>
+        <br><br>
+        <div class="input-group input-group-lg">
+            <span class="input-group-text"></span>
+            <input
+                class="form-control"
+                type="password"
+                placeholder="Password"
+                formControlName="password"
+                aria-label="password">
+            <i class="bi bi-eye" aria-hidden="true"></i>
+        </div>
+        <span style="color: crimson;" 
+        *ngIf="password && password.invalid && password.touched" >Please enter password</span>
+        <br><br>
+        <span class="lonig_sub_btn">
+            <button type="submit" class="btn btn-primary">login</button>&nbsp;&nbsp;
+            <a routerLink="/register"><button type="link" class="btn btn-success">Register</button></a>
+        </span>
+        
+    </form>
+    
+    
+</div>
+</div> -->
+<div class="container-fluid cont">
+    <div class="row justify-content-center r1">
+        <div class="col-12 col-sm-10 col-md-12 col-lg-11 col-xl-10">
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-5 col-sm-12 col-xs-12 c1 p-5">
+                        <div class="row mb-5 m-3"> 
+                            <img src="assets/images/Farming_fornt.jpeg" width="60px" height="300px" alt=""> 
+                        </div> 
+                        
+                        <div class="row justify-content-center">
+                            <div class="d">
+                                <h6 class="wlcm">Welcome to your Forming</h6> 
+                                
+                            </div>
+                        </div>
+                        </div>
+                    <div class="col-md-7 col-sm-12 col-xs-12 c2 px-5 pt-5">
+                        
+                        <form [formGroup] ="loginDetails" class="login_form" (ngSubmit)="onsumbit()">
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text"></span>
+                                <input type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                formControlName="userName"
+                                aria-label="UserName">
+                            </div>
+                            <span style="color: crimson;" 
+                                *ngIf="userName && userName.invalid && userName.touched" >Please enter Username
+                            </span>
+                                <br><br>
+                            <div class="input-group input-group-lg">
+                            <span class="input-group-text"></span>
+                            <input
+                            class="form-control"
+                            type="password"
+                            placeholder="Password"
+                            formControlName="password"
+                            aria-label="password">
+                            <i class="bi bi-eye" aria-hidden="true"></i>
+                            </div>
+                            <span style="color: crimson;" 
+                            *ngIf="password && password.invalid && password.touched" >Please enter password</span>
+                            <br><br>
+                            <span class="lonig_sub_btn">
+                            <button type="submit" class="btn btn-primary">login</button>&nbsp;&nbsp;
+                            <a routerLink="/register"><button type="link" class="btn btn-success">Register</button></a>
+                            </span>
+        
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
