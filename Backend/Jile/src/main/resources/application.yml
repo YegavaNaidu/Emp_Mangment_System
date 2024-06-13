@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    username: root       #aws mysql DB password
+    password: 9963409244sS@
+    url: jdbc:mysql://localhost:3306/jile
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+
+
+#      aws db LOGIN
+#spring:
+#  datasource:
+#    username: admin       #aws mysql DB password
+#    password: Password
+#    url: jdbc:mysql://database-1.c5qy8swsofdz.ap-southeast-2.rds.amazonaws.com:3306/Jile
+#    driver-class-name: com.mysql.jdbc.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#      show-sql: true
