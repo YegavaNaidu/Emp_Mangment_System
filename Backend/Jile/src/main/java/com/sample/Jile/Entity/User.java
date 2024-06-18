@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 import com.sample.Jile.Entity.Images;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name="User")
@@ -49,6 +51,18 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     private Images emp_Images;
 
+    @Column(name = "Created_date" )
+    @CreationTimestamp
+    private Date Created_date;
+
+
+    public Date getCreated_date() {
+        return Created_date;
+    }
+
+    public void setCreated_date(Date created_date) {
+        Created_date = created_date;
+    }
 
     public Images getEmp_Images() {
         return emp_Images;
