@@ -14,7 +14,7 @@ public class LoginServices {
     UserRepo userRepo;
 
     public String verifyCrds(String userName, String password) {
-        return "0";
+        return (userName.equals(password)) ? "logged in" : "incorrect crds";
     }
 
     public ResponseEntity<User> register(User user) {
