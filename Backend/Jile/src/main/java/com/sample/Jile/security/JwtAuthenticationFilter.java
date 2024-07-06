@@ -1,5 +1,8 @@
 package com.sample.Jile.security;
 
+
+
+import com.sample.Jile.Services.CustomUserDetail;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import jakarta.servlet.FilterChain;
@@ -12,25 +15,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+@Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
     private Logger logger = LoggerFactory.getLogger(OncePerRequestFilter.class);
+
     @Autowired
     private JWTHelper jwtHelper;
 
-
     @Autowired
-    private UserDetailsService userDetailsService;
+    private CustomUserDetail customUserDetail;
 
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException{
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain)
+                                        throws ServletException, IOException{
 
 //        try {
 //            Thread.sleep(500);
@@ -41,14 +48,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
         String requestHeader = request.getHeader("Authorization");
         //Bearer 2352345235sdfrsfgsdfsdf
-        logger.info(" Header :  {}", requestHeader);
+        logger.info(" Header in Jwtfilter:", requestHeader);
         String username = null;
         String token = null;
         if (requestHeader != null && requestHeader.startsWith("Bearer")) {
             //looking good
-            token = requestHeader.substring(7);
-            try {
 
+            try {
+                token = requestHeader.substring(7);
                 username = this.jwtHelper.getUsernameFromToken(token);
 
             } catch (IllegalArgumentException e) {
@@ -69,20 +76,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
         } else {
             logger.info("Invalid Header Value !! ");
         }
-
+        logger.info(" Username in Jwtfilter1:", username);
 
         //
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
 
             //fetch user detail from username
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = this.customUserDetail.loadUserByUsername(username);
             Boolean validateToken = this.jwtHelper.validateToken(token, userDetails);
+            logger.info("Username in Jwtfilter2:", username);
             if (validateToken) {
 
                 //set the authentication
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(userDetails,
+                                                        null,
+                                                                userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
 

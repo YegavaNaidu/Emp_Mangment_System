@@ -18,6 +18,6 @@ public class JWTAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         PrintWriter writer = response.getWriter();
-        writer.println("Acess Denied !!" + authException.getMessage());
+        writer.println("Acess Denied in JWTAuthentientrypoint!!   " + authException.getMessage());
     }
 }

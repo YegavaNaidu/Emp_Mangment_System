@@ -5,150 +5,97 @@ import jakarta.persistence.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 import com.sample.Jile.Entity.Images;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Entity
 @Table(name="User")
-public class User {
+public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id = 1L;
 
-    @Column(name="username")
+    @Column(name = "username")
     private String username;
 
-    @Column(name="password")
+    @Column(name = "password")
     private String password;
 
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
     @Temporal(TemporalType.DATE)
-    @Column(name="dateofbirth")
+    @Column(name = "dateofbirth")
     private Date dateofbirth;
 
-    @Column(name="firstname")
+    @Column(name = "firstname")
     private String firstname;
 
-    @Column(name="lastname")
+    @Column(name = "lastname")
     private String lastname;
 
-    @Column(name="phonenumber")
+    @Column(name = "phonenumber")
     private Long phonenumber;
 
-    @Column(name ="gender")
+    @Column(name = "gender")
     private String gender;
 
-    @Column(name="feildOfInterest")
+    @Column(name = "feildOfInterest")
     private String feildOfInterest;
 
 
     @OneToOne(cascade = CascadeType.ALL)
     private Images emp_Images;
 
-    @Column(name = "Created_date" )
+    @Column(name = "Created_date")
     @CreationTimestamp
     private Date Created_date;
 
 
-    public Date getCreated_date() {
-        return Created_date;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
-
-    public void setCreated_date(Date created_date) {
-        Created_date = created_date;
-    }
-
-    public Images getEmp_Images() {
-        return emp_Images;
-    }
-
-    public void setEmp_Images(Images emp_Images) {
-        this.emp_Images = emp_Images;
-    }
-
-    public String getFeildOfInterest() {
-        return feildOfInterest;
-    }
-
-    public void setFeildOfInterest(String feildOfInterest) {
-        this.feildOfInterest = feildOfInterest;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
+    @Override
     public String getPassword() {
-        return password;
+        return this.password;
+    };
+
+    @Override
+    public String getUsername(){
+        return this.email;
+    };
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public String getEmail() {
-        return email;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Date getDateofbirth() {
-        return dateofbirth;
-    }
-
-    public void setDateofbirth(Date dateofbirth) {
-        this.dateofbirth = dateofbirth;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public Long getPhonenumber() {
-        return phonenumber;
-    }
-
-    public void setPhonenumber(Long phonenumber) {
-        this.phonenumber = phonenumber;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

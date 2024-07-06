@@ -10,7 +10,7 @@ import lombok.*;
 @ToString
 public class JwtRequest {
 
-    private String JwtToken;
-
     private String username;
+
+    private String password;
 }
