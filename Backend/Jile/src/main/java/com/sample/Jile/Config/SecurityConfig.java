@@ -40,7 +40,7 @@ public class SecurityConfig {
 
         http.csrf(csrf -> csrf.disable())
                 //.cors( cors -> cors.disable())
-                .authorizeHttpRequests(auth ->auth.requestMatchers("/auth/test").permitAll())
+                .authorizeHttpRequests(auth ->auth.requestMatchers("/auth/login").permitAll())
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/register","/auth/getuser").authenticated())
                 .exceptionHandling( ex ->ex.authenticationEntryPoint(point))
                 .sessionManagement( ss -> ss.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

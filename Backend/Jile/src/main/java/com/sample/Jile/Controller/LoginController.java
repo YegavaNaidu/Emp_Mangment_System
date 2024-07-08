@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sample.Jile.Entity.Images;
 import com.sample.Jile.Entity.JwtRequest;
+import com.sample.Jile.Entity.JwtResponse;
 import com.sample.Jile.Entity.User;
-import com.sample.Jile.Services.CustomUserDetail;
 import com.sample.Jile.Services.LoginServices;
 import com.sample.Jile.security.JWTHelper;
 import org.slf4j.Logger;
@@ -28,7 +28,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
-//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 public class LoginController {
 
     private Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -38,18 +38,17 @@ public class LoginController {
     @Autowired
     LoginServices loginServices;
     @Autowired
-    CustomUserDetail customUserDetail;
-    @Autowired
     JWTHelper jwtHelper;
     @Autowired
     AuthenticationManager authenticationManager;
 
-    @PostMapping("/test")
-    public ResponseEntity<String> myTest(@RequestBody JwtRequest request){
+    @PostMapping("/login")
+    public ResponseEntity<JwtResponse> myTest(@RequestBody JwtRequest request){
 
         logger.info("Username----> " +request.getPassword());
         logger.info("Username----> " + loginServices.verifyCrds(request.getUsername(), request.getPassword()));
         String response=null;
+        JwtResponse jwtResponse =new JwtResponse();
         Authentication authentication = authenticationManager.authenticate
                 (new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         if (authentication.isAuthenticated()) {
@@ -58,7 +57,10 @@ public class LoginController {
         } else {
             throw new UsernameNotFoundException("invalid user request !");
         }
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        jwtResponse.setUsername(request.getUsername());
+        jwtResponse.setJwtToken(response);
+        logger.info("JWTtoken : " + jwtResponse);
+        return new ResponseEntity<>(jwtResponse, HttpStatus.OK);
     }
 
     @GetMapping("/getuser")
@@ -74,6 +76,7 @@ public class LoginController {
         User user = null;
         try {
             user = objectMapper.readValue(user1, User.class);
+            logger.info("User : " + user);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
